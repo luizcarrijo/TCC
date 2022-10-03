@@ -34,3 +34,38 @@
 </body>
 </html>
 
+<?php
+include "mysqlconecta.php";
+$nome = $_POST['nome'];
+$email = $_POST['email'];
+$psw = $_POST['psw'];
+$telefone = $_POST['telefone'];
+
+
+echo "Nome: ".$nome."<br>";
+echo "Email: ".$email."<br>";
+echo "Psw: ".$psw."<br>";
+echo "Telefone: ".$telefone."<br>";
+
+
+$query = mysqli_query($conexao, "insert into usuario (nome, telefone, email, senha)
+ Values('$pessoafj', '$nome','$telefone','$email','$psw')");
+
+$query = mysqli_query($conexao,"nome, telefone, email, senha ='$nome'") or die ("erro1000");
+
+$resultado = mysqli_num_rows($query);
+$saida = mysqli_fetch_row($query);
+
+if($resultado <> 0)
+{
+    echo("<br>Erro na inserção do registro. ");
+    echo("<br><a href="Cadastro.php">");
+
+}
+else
+{
+    echo("<br>Registro Inserido com sucesso. ");
+    echo("<br><a href="Login.php">OK</a></td>");
+}
+
+?>
