@@ -1,0 +1,58 @@
+CREATE TABLE Usuario (
+id_usuario INTEGER (5) PRIMARY KEY,
+Nome VARCHAR (100),
+Telefone VARCHAR (15),
+Email VARCHAR (50),
+Senha VARCHAR (45)
+);
+
+CREATE TABLE Agendamento (
+cod_agendamento INTEGER (5) PRIMARY KEY,
+Horario VARCHAR (5),
+Data VARCHAR (10),
+id_cliente INTEGER (5),
+id_locador INTEGER (5)
+);
+
+CREATE TABLE QuadraEsportiva_Endereco (
+cod_campo INTEGER (5),
+Tipo VARCHAR (100),
+Valor VARCHAR (12),
+id_endereco INTEGER (5),
+Logradouro VARCHAR (100),
+CEP VARCHAR (12),
+Bairro VARCHAR (50),
+Cidade VARCHAR (50),
+UF VARCHAR (2),
+cod_agendamento INTEGER (5),
+PRIMARY KEY(cod_campo,id_endereco),
+FOREIGN KEY(cod_agendamento) REFERENCES Agendamento (cod_agendamento)
+);
+
+CREATE TABLE Cliente (
+id_cliente INTEGER (5) PRIMARY KEY,
+RG VARCHAR (12),
+CPF VARCHAR (15),
+Data_Nascimento VARCHAR (10),
+id_usuario INTEGER (5),
+FOREIGN KEY(id_usuario) REFERENCES Usuario (id_usuario)
+);
+
+CREATE TABLE Login (
+usuario VARCHAR (20) PRIMARY KEY,
+Senha VARCHAR (10),
+id_usuario INTEGER (5),
+FOREIGN KEY(id_usuario) REFERENCES Usuario (id_usuario)
+);
+
+CREATE TABLE Administrador (
+id_locador INTEGER (5) PRIMARY KEY,
+Nome_Funcionario VARCHAR (100),
+Razao_Social VARCHAR (100),
+CNPJ VARCHAR (20),
+id_usuario INTEGER (5),
+FOREIGN KEY(id_usuario) REFERENCES Usuario (id_usuario)
+);
+
+ALTER TABLE Agendamento ADD FOREIGN KEY(id_cliente) REFERENCES Cliente (id_cliente);
+ALTER TABLE Agendamento ADD FOREIGN KEY(id_locador) REFERENCES Administrador (id_locador);
